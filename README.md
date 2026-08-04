@@ -161,14 +161,14 @@ testing by MS/MS, not confirmed identifications.
 
 ## Proof of concept
 
-Run against a public METASPACE dataset — human colon 3D culture, MALDI, DHB
+Run against a public METASPACE dataset, human colon 3D culture, MALDI, DHB
 matrix, FT-ICR at 80,000 resolving power, positive mode, 4,850 pixels, 1,866
 features after occupancy filtering.
 
 Seeded from 20 compounds (58 annotated features), with an 8 ppm tolerance and a
 0.6 colocalisation threshold:
 
-The dataset is a **3D cell culture**, not tissue — there is no microbiome and
+The dataset is a **3D cell culture**, not tissue, there is no microbiome and
 no hepatic conjugation machinery, so the chemistry available is essentially
 membrane lipids. It is a sound technical test and a limited biological one.
 
@@ -247,7 +247,7 @@ metabolite pairs:
 | p-cresol → p-cresol sulfate (sulfation) | 79.9568 | 79.9568 |
 | phenylacetate → phenylacetylglutamine (glutamine) | 128.0586 | 128.0586 |
 
-These three are host conjugates of gut microbial metabolites — the same
+These three are host conjugates of gut microbial metabolites, the same
 chemistry reported as biomarkers of methotrexate non-response in
 [Kumar et al., *Biomed Pharmacother* 2025;193:118755](https://doi.org/10.1016/j.biopha.2025.118755).
 
