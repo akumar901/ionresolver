@@ -1,3 +1,4 @@
+<img src="assets/logo.png" width="420">
 # ionresolver
 
 Annotation of imaging mass spectrometry data with explicit confidence levels.
