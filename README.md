@@ -4,7 +4,7 @@ Annotation of imaging mass spectrometry data with explicit confidence levels.
 
 Companion package to [chemresolver](https://github.com/akumar901/chemresolver-).
 `chemresolver` resolves compound **names** to structures. `ionresolver` resolves
-observed **ions** to identities — and reports how much each identity is worth
+observed **ions** to identities, and reports how much each identity is worth
 trusting.
 
 ---
@@ -16,7 +16,7 @@ It does not give you compound identities. Two things make that hard:
 
 1. **Chromatography is gone.** Isomers that would have separated by retention
    time collapse into a single m/z. At 5 ppm, m/z 782.567 matches both
-   PC(34:1) and the ether lipid PC(O-34:1) — and those can localise to
+   PC(34:1) and the ether lipid PC(O-34:1), and those can localise to
    different tissue regions.
 2. **Most features stay unannotated.** On a real METASPACE dataset (human
    colon, FT-ICR, 1,866 features), accurate-mass search against a curated
@@ -29,8 +29,8 @@ silently inherits that uncertainty.
 ## What this package does
 
 **Attaches an evidence trail to every annotation.** Each candidate carries an
-explicit record of which criteria it satisfied — accurate mass, isotope
-pattern, MS/MS, CCS, authentic standard, spatial colocalisation — and a
+explicit record of which criteria it satisfied, accurate mass, isotope
+pattern, MS/MS, CCS, authentic standard, spatial colocalisation, and a
 confidence level derived from them, following the Metabolomics Standards
 Initiative.
 
@@ -48,13 +48,13 @@ becomes the substitute evidence channel.
 
 **Filters on chemical plausibility.** Mass and colocalisation together still
 admit assignments that are chemically impossible. A phosphatidylcholine cannot
-be deaminated — its nitrogen is a quaternary ammonium with no hydrogens to
+be deaminated, its nitrogen is a quaternary ammonium with no hydrogens to
 lose. Functional-group rules add a third constraint independent of both mass
 and spatial distribution.
 
 **Distinguishes adducts from fragments.** `[M+H-H2O]+` is an in-source
 fragment, not an intact molecule. Seeding a biotransformation search from one
-builds the network on top of an artefact — on the test dataset that accounted
+builds the network on top of an artefact, on the test dataset that accounted
 for a quarter of all hits. Fragment species are excluded from seeding by
 default and available via `include_fragments=True` when the goal is simply to
 explain observed peaks.
@@ -209,7 +209,7 @@ The four survivors, with the parent adduct that the arithmetic used:
 | 788.521 | PC(32:0) | [M+K]+ | epoxidation | 0.739 |
 
 Three of four derive from potassium adducts, which is worth checking rather
-than assuming — a pattern that concentrated on one adduct would suggest an
+than assuming, a pattern that concentrated on one adduct would suggest an
 unmodelled adduct relationship rather than real chemistry.
 
 **The FDR interval is wide on purpose.** The point estimate moves by roughly
@@ -229,7 +229,7 @@ Threshold sweep:
 
 Recovered relationships include palmitoylcarnitine → stearoylcarnitine (C2H4
 chain extension, coloc 0.974), LPC(16:0) → LPC(16:1) (desaturation, 0.906), and
-PC(34:1) → PC(34:2) (desaturation, 0.919) — correct lipid chemistry recovered
+PC(34:1) → PC(34:2) (desaturation, 0.919), correct lipid chemistry recovered
 without any MS/MS.
 
 Reproduce with `examples/poc_metaspace.py`.
@@ -268,7 +268,7 @@ chemistry reported as biomarkers of methotrexate non-response in
 - Recall scales with the seed database. Twenty seed compounds annotate a small
   fraction of features; a full HMDB-scale seed set is the obvious next step.
 - Colocalisation assumes a metabolite and its conjugate occupy related tissue
-  compartments. That is often but not always true — a conjugate destined for
+  compartments. That is often but not always true, a conjugate destined for
   export may localise to different structures than its parent.
 - The FDR estimate depends on decoy shifts being chemically impossible. Decoys
   are offset to avoid coinciding with real elemental compositions, but the
