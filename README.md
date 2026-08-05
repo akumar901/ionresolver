@@ -45,10 +45,10 @@ carries a fixed exact mass. If an unknown sits at an annotated parent's m/z
 plus a valid biotransformation shift **and** colocalises with that parent, that
 is real evidence for a putative identity.
 
-The spatial constraint is what makes this imaging-specific. LC-MS has molecular
-networking based on MS/MS similarity; imaging experiments often have no MS/MS
-at all, but they carry a spatial distribution for every ion. Colocalisation
-becomes the substitute evidence channel.
+The spatial constraint is what makes this approach imaging-specific. LC-MS has 
+molecular networking based on MS/MS similarity; imaging experiments often have 
+no MS/MS at all, but they carry a spatial distribution for every ion. 
+Colocalisation becomes the substitute evidence channel.
 
 **Filters on chemical plausibility.** Mass and colocalisation together still
 admit assignments that are chemically impossible. A phosphatidylcholine cannot
@@ -67,7 +67,7 @@ explain observed peaks.
 routinely splits one peak across adjacent bins, so the same relationship gets
 counted twice under different names. Merged features carry an
 intensity-weighted centroid, and every propagated row records which *adduct*
-of the parent the mass arithmetic used — without that, a row reading
+of the parent the mass arithmetic used - without that, a row reading
 "PC(32:0) + hydration" cannot be checked by hand.
 
 **Respects sample context.** Microbial transformations cannot occur in an
@@ -220,7 +220,8 @@ unmodelled adduct relationship rather than real chemistry.
 ten percentage points between random seeds at n=10 decoy runs. Reporting a
 single number would overstate what the data supports.
 
-Threshold sweep:
+Threshold sweep (mass + colocalisation + plausibility + artefact filters 
+only; before feature merging and sample context):
 
 | coloc_min | real hits | decoy mean | FDR |
 |-----------|-----------|------------|-----|
@@ -269,8 +270,6 @@ chemistry reported as biomarkers of methotrexate non-response in
 - Recall depends on the seed set in a way that is not yet characterised.
   Twenty seed compounds produced 58 seeded features across their adducts;
   results shift noticeably when that list changes.
-- Recall scales with the seed database. Twenty seed compounds annotate a small
-  fraction of features; a full HMDB-scale seed set is the obvious next step.
 - Colocalisation assumes a metabolite and its conjugate occupy related tissue
   compartments. That is often but not always true, a conjugate destined for
   export may localise to different structures than its parent.
