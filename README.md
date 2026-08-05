@@ -1,13 +1,22 @@
-<img src="assets/logo.png" width="420">
+<table>
+<tr>
+<td valign="middle" width="65%">
 
 # ionresolver
 
-Annotation of imaging mass spectrometry data with explicit confidence levels.
+**Annotation of imaging mass spectrometry data with explicit confidence levels.**
 
 Companion package to [chemresolver](https://github.com/akumar901/chemresolver-).
 `chemresolver` resolves compound **names** to structures. `ionresolver` resolves
-observed **ions** to identities, and reports how much each identity is worth
+observed **ions** to identities — and reports how much each identity is worth
 trusting.
+
+</td>
+<td valign="middle" width="35%" align="right">
+<img src="assets/logo.png" width="260">
+</td>
+</tr>
+</table>
 
 ---
 
