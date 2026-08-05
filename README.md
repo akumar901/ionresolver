@@ -20,7 +20,7 @@ It does not give you compound identities. Two things make that hard:
 
 1. **Chromatography is gone.** Isomers that would have separated by retention
    time collapse into a single m/z. At 5 ppm, m/z 782.567 matches both
-   PC(34:1) and the ether lipid PC(O-34:1), and those can localise to
+   PC(34:1) and the ether lipid PC(O-34:1), and those can localize to
    different tissue regions.
 2. **Most features stay unannotated.** On a real METASPACE dataset (human
    colon, FT-ICR, 1,866 features), accurate-mass search against a curated
@@ -33,8 +33,8 @@ silently inherits that uncertainty.
 ## What this package does
 
 **Attaches an evidence trail to every annotation.** Each candidate carries an
-explicit record of which criteria it satisfied, accurate mass, isotope
-pattern, MS/MS, CCS, authentic standard, spatial colocalisation, and a
+explicit record of which criteria it satisfied, accurate mass, and isotope
+pattern, MS/MS, CCS, authentic standard, spatial colocalization, and a
 confidence level derived from them, following the Metabolomics Standards
 Initiative.
 
@@ -48,17 +48,17 @@ is real evidence for a putative identity.
 The spatial constraint is what makes this approach imaging-specific. LC-MS has 
 molecular networking based on MS/MS similarity; imaging experiments often have 
 no MS/MS at all, but they carry a spatial distribution for every ion. 
-Colocalisation becomes the substitute evidence channel.
+Colocalization becomes the substitute evidence channel.
 
-**Filters on chemical plausibility.** Mass and colocalisation together still
+**Filters on chemical plausibility.** Mass and colocalization together still
 admit assignments that are chemically impossible. A phosphatidylcholine cannot
-be deaminated, its nitrogen is a quaternary ammonium with no hydrogens to
+be deaminated; its nitrogen is a quaternary ammonium with no hydrogens to
 lose. Functional-group rules add a third constraint independent of both mass
 and spatial distribution.
 
 **Distinguishes adducts from fragments.** `[M+H-H2O]+` is an in-source
 fragment, not an intact molecule. Seeding a biotransformation search from one
-builds the network on top of an artefact, on the test dataset that accounted
+builds the network on top of an artifact, on the test dataset that accounted
 for a quarter of all hits. Fragment species are excluded from seeding by
 default and available via `include_fragments=True` when the goal is simply to
 explain observed peaks.
@@ -67,17 +67,17 @@ explain observed peaks.
 routinely splits one peak across adjacent bins, so the same relationship gets
 counted twice under different names. Merged features carry an
 intensity-weighted centroid, and every propagated row records which *adduct*
-of the parent the mass arithmetic used - without that, a row reading
+of the parent, the mass arithmetic used - without that, a row reading
 "PC(32:0) + hydration" cannot be checked by hand.
 
 **Respects sample context.** Microbial transformations cannot occur in an
-axenic cell culture, however well the mass and colocalisation agree. Setting
+axenic cell culture, however well the mass and colocalization agree. Setting
 ``sample_context="cell_culture"`` removes that chemistry from the search.
 
-**Excludes in-source artefacts.** A feature at parent − 18.0106 is usually
-water loss from the parent ion, not a dehydrated molecule, and it colocalises
+**Excludes in-source artifacts.** A feature at parent − 18.0106 is usually
+water loss from the parent ion, not a dehydrated molecule, and it colocalizes
 perfectly *because it is the same molecule*. Adduct differences behave the
-same way. On real data these artefacts produce the highest-scoring and least
+same way. On real data, these artifacts produce the highest-scoring and least
 meaningful hits.
 
 **Controls the false discovery rate.** Any mass-difference search returns
@@ -165,19 +165,14 @@ testing by MS/MS, not confirmed identifications.
 
 ## Proof of concept
 
-Run against a public METASPACE dataset, human colon 3D culture, MALDI, DHB
+Run against a public METASPACE dataset: human colon 3D culture, MALDI, DHB
 matrix, FT-ICR at 80,000 resolving power, positive mode, 4,850 pixels, 1,866
 features after occupancy filtering.
 
-Seeded from 20 compounds (58 annotated features), with an 8 ppm tolerance and a
-0.6 colocalisation threshold:
+**Note:** This is a cell culture, not tissue — no microbiome and no hepatic
+conjugation machinery. Sound technical test; limited biological one.
 
-The dataset is a **3D cell culture**, not tissue, there is no microbiome and
-no hepatic conjugation machinery, so the chemistry available is essentially
-membrane lipids. It is a sound technical test and a limited biological one.
-
-Effect of each filter, seeded from 20 compounds (58 annotated features) at
-8 ppm and a 0.6 colocalisation threshold:
+Effect of each filter (20 seed compounds, 8 ppm tolerance, 0.6 colocalization):
 
 | Stage | Hits |
 |-------|------|
@@ -200,7 +195,7 @@ Final validation:
 
 Of the 39, **35 are lipid-series relationships** and **4 are genuine
 modifications**. The split matters: members of a homologous lipid series share
-membranes and colocalise almost by construction, so those relationships are
+membranes and colocalize almost by construction, so those relationships are
 real chemistry but weak evidence.
 
 The four survivors, with the parent adduct that the arithmetic used:
@@ -212,7 +207,7 @@ The four survivors, with the parent adduct that the arithmetic used:
 | 790.537 | PC(32:0) | [M+K]+ | hydration | 0.800 |
 | 788.521 | PC(32:0) | [M+K]+ | epoxidation | 0.739 |
 
-Three of four derive from potassium adducts, which is worth checking rather
+Three of four derive from potassium adducts, which is worth checking rather than
 than assuming, a pattern that concentrated on one adduct would suggest an
 unmodelled adduct relationship rather than real chemistry.
 
@@ -221,7 +216,7 @@ ten percentage points between random seeds at n=10 decoy runs. Reporting a
 single number would overstate what the data supports.
 
 Threshold sweep (mass + colocalisation + plausibility + artefact filters 
-only; before feature merging and sample context):
+only, before feature merging and sample context):
 
 | coloc_min | real hits | decoy mean | FDR |
 |-----------|-----------|------------|-----|
@@ -241,7 +236,7 @@ Reproduce with `examples/poc_metaspace.py`.
 
 ---
 
-## Validation of the transformation catalogue
+## Validation of the transformation catalog
 
 The Phase II conjugations are checked in the test suite against published
 metabolite pairs:
@@ -253,7 +248,7 @@ metabolite pairs:
 | phenylacetate → phenylacetylglutamine (glutamine) | 128.0586 | 128.0586 |
 
 These three are host conjugates of gut microbial metabolites, the same
-chemistry reported as biomarkers of methotrexate non-response in
+Chemistry reported as biomarkers of methotrexate non-response in
 [Kumar et al., *Biomed Pharmacother* 2025;193:118755](https://doi.org/10.1016/j.biopha.2025.118755).
 
 ---
@@ -261,22 +256,22 @@ chemistry reported as biomarkers of methotrexate non-response in
 ## Limitations
 
 - Propagated annotations are **Level 3**. They require MS/MS confirmation.
-- Colocalisation cannot distinguish a biotransformation product from an
-  in-source fragment of the same molecule. The artefact list handles the common
+- Colocalization cannot distinguish a biotransformation product from an
+  in-source fragment of the same molecule. The artifact list handles the common
   cases; it is not exhaustive.
 - Functional groups are inferred from compound class and formula, not from
   structure. Supply a `groups` column in the compound database for anything
   where the inference is likely wrong.
-- Recall depends on the seed set in a way that is not yet characterised.
+- Recall depends on the seed set in a way that is not yet characterized.
   Twenty seed compounds produced 58 seeded features across their adducts;
-  results shift noticeably when that list changes.
-- Colocalisation assumes a metabolite and its conjugate occupy related tissue
-  compartments. That is often but not always true, a conjugate destined for
-  export may localise to different structures than its parent.
+  Results shift noticeably when that list changes.
+- Colocalization assumes a metabolite and its conjugate occupy related tissue
+  compartments. That is often but not always true; a conjugate destined for
+  export may localize to different structures than its parent.
 - The FDR estimate depends on decoy shifts being chemically impossible. Decoys
   are offset to avoid coinciding with real elemental compositions, but the
   null is approximate.
-- No CCS prediction yet. On ion-mobility instruments this is the single largest
+- No CCS prediction yet. On ion-mobility instruments, this is the single largest
   available gain, since CCS separates isomers that mass cannot.
 
 ## Roadmap
@@ -285,7 +280,7 @@ chemistry reported as biomarkers of methotrexate non-response in
 - CCS as a scored evidence dimension, measured and predicted
 - Direct imzML ingestion, including processed-mode binning
 - Isotope-pattern scoring rather than a boolean flag
-- Export to Cytoscape for network visualisation
+- Export to Cytoscape for network visualization
 
 ## License
 
