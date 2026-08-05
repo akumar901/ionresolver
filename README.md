@@ -1,6 +1,6 @@
-<table border="0">
+<table style="border:none; border-collapse:collapse;">
 <tr>
-<td valign="middle" width="65%">
+<td valign="middle" width="65%" style="border:none;">
 
 # ionresolver
 
@@ -12,11 +12,11 @@ observed **ions** to identities — and reports how much each identity is worth
 trusting.
 
 </td>
-<td valign="middle" width="35%" align="right">
+<td valign="middle" width="35%" align="right" style="border:none;">
 <img src="assets/logo.png" width="260">
 </td>
 </tr>
-<table border="0">
+</table>
 
 ---
 
