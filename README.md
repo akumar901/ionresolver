@@ -16,7 +16,7 @@ trusting.
 <img src="assets/logo.png" width="260">
 </td>
 </tr>
-</table>
+<table border="0">
 
 ---
 
