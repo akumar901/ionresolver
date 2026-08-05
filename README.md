@@ -1,6 +1,6 @@
-<table style="border:none; border-collapse:collapse;">
-<tr>
-<td valign="middle" width="65%" style="border:none;">
+<div align="right">
+<img src="assets/logo.png" width="260">
+</div>
 
 # ionresolver
 
@@ -10,13 +10,6 @@ Companion package to [chemresolver](https://github.com/akumar901/chemresolver-).
 `chemresolver` resolves compound **names** to structures. `ionresolver` resolves
 observed **ions** to identities — and reports how much each identity is worth
 trusting.
-
-</td>
-<td valign="middle" width="35%" align="right" style="border:none;">
-<img src="assets/logo.png" width="260">
-</td>
-</tr>
-</table>
 
 ---
 
