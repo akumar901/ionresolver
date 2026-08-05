@@ -1,6 +1,6 @@
-<div align="right">
-<img src="assets/logo.png" width="260">
-</div>
+<p align="center">
+<img src="assets/logo.png" width="380">
+</p>
 
 # ionresolver
 
